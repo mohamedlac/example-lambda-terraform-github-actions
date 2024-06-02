@@ -1,0 +1,7 @@
+version: '3'
+
+tasks:
+  create-lambda-package:
+    desc: Create a .zip deployment package for lambda.
+    cmds:
+      - ./src/scripts/create_lambda_package.sh {{.LAMBDA_NAME}}
