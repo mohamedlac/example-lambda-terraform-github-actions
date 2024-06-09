@@ -7,6 +7,16 @@
             ],
             "Effect": "Allow",
             "Resource": "*"
+        },
+        {
+            "Action": [
+                "s3:Get*",
+                "s3:Put*",
+                "s3:List*",
+                "s3:Describe*"
+            ],
+            "Effect": "Allow",
+            "Resource": "arn:aws:s3:::nyc-data-08062024/landing/*"
         }
     ]
 }

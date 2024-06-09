@@ -1,20 +1,16 @@
 #!/bin/bash
 
-# Root directory path
 ROOT_DIR=$(pwd)
-# Virtual environment location
-LAMBDA_NAME="$1"
-SITE_PACKAGES_DIR="envs/lambdas/${LAMBDA_NAME}-env/lib/python3.12/site-packages"
-LAMBDAS_DIR=${ROOT_DIR}/"src/lambdas"
-LAMBDA_PKG_PATH="${ROOT_DIR}/${LAMBDA_NAME}_pkg.zip"
+function_path="$1"
+function_name="$2"
+dependencies_path="$3"
+PATH_TO_ARTIFACTS="${ROOT_DIR}/artifacts"
 
-# This checks if the virtual environment location of the lambda function exists
-if [[ -d "${SITE_PACKAGES_DIR}" ]]; then
-  # Create a zip file with the libraries in the virtual environment at the root directory
-  cd "${SITE_PACKAGES_DIR}" && zip -r "${LAMBDA_PKG_PATH}" .
-  # Add *.py to the zip lambda package
-  # shellcheck disable=SC2140
-  cd "${LAMBDAS_DIR}"/"${LAMBDA_NAME}"&& zip -r "${LAMBDA_PKG_PATH}" . -i "*.py"
+if [ -d "${dependencies_path}" ] && [ -d "${function_path}" ]; then
+
+  cd "${dependencies_path}" || return
+  zip -r "${PATH_TO_ARTIFACTS}"/"${function_name}" .
+
+  cd "${ROOT_DIR}"/"${function_path}" || return
+  zip -r "${PATH_TO_ARTIFACTS}"/"${function_name}.zip" . -i "*.py"
 fi
-
-

@@ -30,3 +30,10 @@ module "lambdaFunction" {
   timeout             = local.timeout
   runtime             = local.runtime
 }
+
+module "nycTripsDataBucket" {
+  source = "./modules/s3"
+
+  s3_nyc_data_bucket_name         = local.s3_nyc_data_bucket_name
+  s3_nyc_data_landing_folder_name = local.s3_nyc_data_landing_folder_name
+}

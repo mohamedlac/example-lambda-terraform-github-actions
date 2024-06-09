@@ -1,4 +1,4 @@
-resource "aws_lambda_function" "hello-world" {
+resource "aws_lambda_function" "upload-trips-data-to-3" {
   filename      = var.path_to_artifact
   function_name = var.function_name
   role          = var.lambda_iam_role_arn
